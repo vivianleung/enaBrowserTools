@@ -117,7 +117,7 @@ sample_pattern_1 = re.compile('^SAM[ND][0-9]{8}$')
 sample_pattern_2 = re.compile('^SAMEA[0-9]{6,}$')
 sample_pattern_3 = re.compile('^[EDS]RS[0-9]{6,}$')
 
-enaBrowserTools_path = os.path.dirname(os.path.dirname(__file__))
+enaBrowserTools_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
 def is_sequence(accession):
@@ -408,7 +408,7 @@ def set_aspera_variables(filepath):
         parser.read(filepath)
         #  set and check binary location
         global ASPERA_BIN
-        ASPERA_BIN = parser.get('aspera', 'ASPERA_BIN')
+        ASPERA_BIN = os.path.realpath(parser.get('aspera', 'ASPERA_BIN'))
         if not os.path.exists(ASPERA_BIN):
             print('Aspera binary ({0}) does not exist. Defaulting to FTP transfer'.format(ASPERA_BIN))
             return False
@@ -418,7 +418,7 @@ def set_aspera_variables(filepath):
             return False
         # set and check private key location
         global ASPERA_PRIVATE_KEY
-        ASPERA_PRIVATE_KEY = parser.get('aspera', 'ASPERA_PRIVATE_KEY')
+        ASPERA_PRIVATE_KEY = os.path.realpath(parser.get('aspera', 'ASPERA_PRIVATE_KEY'))
         if not os.path.exists(ASPERA_PRIVATE_KEY):
             print('Private key file ({0}) does not exist. Defaulting to FTP transfer'.format(ASPERA_PRIVATE_KEY))
             return False

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pushd `dirname $0` > /dev/null
-SCRIPTPATH=`pwd -P`
+pushd "$(dirname "$(realpath $0)")" > /dev/null
+SCRIPTPATH="$(pwd -P)"
 popd > /dev/null
 
-python3 ${SCRIPTPATH}/enaDataGet.py "$@"
+python3 "${SCRIPTPATH}/enaDataGet.py" "$@"
